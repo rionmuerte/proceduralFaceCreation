@@ -2,8 +2,13 @@
 
 ---
 
-Lets talk about benefits of not having to create new sprite or model for each of the characters we use. Many games use this, sometimes in forrm of allowing user to create its own character copying later only some hash that represents his or hers face, or generating randomly faces, sometimes even whole bodies. This technique is used by plenty of games and probably everyone reading this knows at least few titles.  
-But why is it usefull? There are plenty of reasons for using it, however there are maybe as well as many reasons not to use it. With examples from code and with some narration I'll try to show both sides arguments in this case, presenting also the easiest way to implement simple random face generator.
+Let's talk about benefits of not having to create new sprites or models for each of the characters we use. There are many games that use this.
+Sometimes by allowing the user to create their own character which can be then saved as a hash string.
+Same can be accomplished with entire bodies.
+Most probably everyone reading this knows at least a few titles that employ such techniques.
+But why would it be useful?
+There are, perhaps as many reasons for using it as there are against.
+I'll try to represent both sides of the argument in this case with annotated examples, presenting the easiest way to implement a simple random face generator.
 
 ---
 
@@ -11,16 +16,46 @@ But why is it usefull? There are plenty of reasons for using it, however there a
 
 ---
 
-There is no simple answer to the question "shoul I use procedurally generated characters in my project?" There are many variables one needs to consider while trying to answer it. Lets look at some advantages and disadvantages if this idea. Because in procedural generation you can use many different methods I will focus mostly on combining prefabricated assets into characters.
+There is no simple answer to the question "should I use procedurally generated characters in my project?".
+There are many variables one needs to consider while trying to answer it.
+Let's look at some advantages and disadvantages.
+One can employ many different methods, I will, however, focus mostly on combining prefabricated assets into characters.
 
 
-First and most important argument is that with low resources you can create huge amount of different content. Lets say you need few characters in a cutscene, or for background in game. Making each and every one of those can be a lot of work and will require lots of characters. Now imagine different solution, for simplicity sake we will use only few variables. Let's say that our character to be unique needs only different nose and haircut. In this case lets say that we use `10` different hairstyles and `10` noses. By simple math we can calculate that `noses x haircuts = 100`. So at the moment we already have `100` different characters for a price of `20` assets. Now compare it to creating every character handmade, it would take `100` models to create them. No matter if this are sprites, 3D models or anything else. For this exact purpose we don't really need some fancy individual characters. They will be unique on their own, hwoever we don't need to really care how they look, they are just background space fillers. This allows to generate them quicly and rather painlessly. But in this case - having different characters doesnt mean that they will look good. And if we make some error in implementation, create to simple assets or just forget about something this could mean that all our characters will look bad. Having them procedurally generated doesn't mean that they will look good. In your game, you might need to mix both techniques. Create different, elegenat sprites for important characters, but leave the background to the noise.
+The most favourable argument is that it is possible to generate a huge amount of varied content with low resource input.
+Let's say you need few background characters for a cutscene.
+Making each and every one of those can often require a lot of work.
+Now imagine a different solution. For simplicity's sake, we will use only a few variables.
+Let's say, for our character to be unique, they need only a different nose a unique haircut.
+In this case let's assume that we use `10` different hairstyles and `10` noses.
+Using simple maths we can calculate that `noses x haircuts = 100`.
+So at the moment we already have `100` different characters for a price of `20` assets.
+Now compare it to creating every character by hand, it would take `100` models.
+Doesn't matter if these are sprites, 3D models or anything else.
+For this exact purpose we don't really need some fancy individual characters.
+They will be unique on their own, just enough for background space fillers.
+This allows us to generate them quickly and rather effortlessly.
+If we make some error in the implementation, use too simple assets or just forget about something this could mean that all of our characters will look bad.
+Having them procedurally generated doesn't ensure that they will look good.
+In your game, you might need to mix various techniques.
+Create different, elegant sprites for important characters, but leave the background noisy.
 
 
-Procedural generation might save you a lot of space. This includes RAM, and in that way it allows to store much more stuff in the memory, allowing game to load faster. On the other hand, at the same moment, while we are loading everything faster, CPU is forced to do some more work, effectively making loading sometimes longer. This might be worked around in some cases, however if you are thinking about using it in your game, maybe you should look into this topic too, see what you need, how does it help in your project and how it makes it worse. Remember that there are many different ways to do it, and the one presented below is only one of many.
+Procedural generation might save you a lot of space.
+This includes RAM, and in that way it allows to store much more stuff in the memory, allowing game to load faster.
+On the other hand, while we load assets faster, the CPU is burdened with extra work, which can result in longer loading times in the end.
+In some cases, there might be work-arounds; however, if you are thinking about using it in your game, maybe you should delve deeper into this topic, ascertain what you need, how it would help and/or hinder your project in particular.
+Remember there are many different ways to implement it - example below is but one of many.
 
 
-However right now I would like to present some big argument against the idea of using procedural character generation, this is argument against procedural generation at all. Because let's face fact, that only part of things we do will be really good, or in some case really unique. not many people will even see that two different characters differ only with color of their eyes. This can happen if you do completely random things (like I do in this example). There are lots of methods, and many can be done to create some character. Let's say you need to spawn character but you already know its parents. You can make him in many different ways. You can combine features of both parents and add some random. Or you can go DNA style and make each component taken randomly from parents for example. Ways are many and it is you who needs to find best way to do so.
+Before that, however, I would like to present an argument against procedural generation.
+The fact is that really only a part of things we generate will be good and/or unique.
+Few will be able to tell apart characters whose eye-colour is the only differentiating factor.
+This can happen if you do completely random things (like I do in this example).
+Let's say you need to spawn a character but you already know their parents.
+You can generate them in many different ways.
+You could combine the features of both parents and add some noise.
+Or you can go DNA style and make each component taken randomly from parents, for example.
 
 ---
 

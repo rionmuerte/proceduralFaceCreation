@@ -2,7 +2,7 @@
 
 ---
 
-Let's talk about benefits of not having to create new sprites or models for each of the characters we use. There are many games that use this.
+Let's talk about the benefits of not having to create new sprites or models for each of the characters we use. There are many games that use this.
 Sometimes by allowing the user to create their own character which can be then saved as a hash string.
 Same can be accomplished with entire bodies.
 Most probably everyone reading this knows at least a few titles that employ such techniques.

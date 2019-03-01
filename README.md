@@ -50,7 +50,7 @@ Remember there are many different ways to implement it - example below is but on
 
 Before that, however, I would like to present an argument against procedural generation.
 The fact is that really only a part of things we generate will be good and/or unique.
-Few will be able to tell apart characters whose eye-colour is the only differentiating factor.
+Few will be able to tell apart characters whose eye-color is the only differentiating factor.
 This can happen if you do completely random things (like I do in this example).
 Let's say you need to spawn a character but you already know their parents.
 You can generate them in many different ways.
@@ -63,10 +63,44 @@ Or you can go DNA style and make each component taken randomly from parents, for
 
 ---
 
-I think the simplest way to generate random face is to create few face components in my case `head shape`, `nose`, `mouth`, `eyes`, as well as some facial hair like `mustache`, `beard`, but also `haircut` and `eyebrows`. For this example purposes I used python language, because of how simple writing code for it is. The code is done mostly to explain how are things done, not necesairly to use it in some game, so you might need to translate it to work within your engine. And remember that this is not the only way to do it, probably your way will be much better, bcause it will be for YOUR game, this is only to show how does this simple method work. So how exactly are those things composed together?
+I think the simplest way to generate random face is to create few face components in my case `head shape`, `nose`, `mouth`, `eyes`, as well as some facial hair like `mustache`, `beard`, but also `haircut` and `eyebrows`.
+For this example I used python language, because of how simple writing code using it is.
+The code is done mostly to explain how things are done, not necessarily to use it in some game, so you might need to translate it to work within your engine.
+And remember that this is not the only way to do it, probably your way will be much better, because it will be for YOUR game, this is only to show how does this simple method work.
+So how exactly are those things composed together?
 
 
-First, the algorithm creates list of available components in each category. This is done in `__init__` method. Then we can call it to create random face, using `createRandomPicture(self, name):` we need only to give this picture name and all the magic begins. When we ask `pictureGenerator` class to make us a picture, it calls series of functions that build face for us and put it into the canvas. It create instance of `pictureHandler` class that handles operations on picture being created. Whenerver we call `addLayer` function it requires two arguments, first, `layer` is a path to layer as a png picture that will be used, second, `color` is tuple with three values representing RGB color (`#ffffff` is `white` and `#000000` is `black`). Function `colorBase` translates string of there values into color, this also adds onother functionality because it can darken or lighten color we are using, which I use while putting nose on face, I make it lighter so it won't blend in. Function `addLayer` puts then all pixels from selected layer into canvas, coloring them accordingly. Now putting it all together, calling `createRandomPicture` draws random face components and colors, then puts them on base picture, to save it at the end in `createdFaces` directory.
+Let's look at the classes within `faceGenerator` script. Or at least their interfaces. The first class is made to handle operations on image we are creating.
+```python
+class pictureHandler:
+    def __init__(self, name)
+    def saveImage(self, dir)
+    def showImage(self)
+    def addLayer(self, layer, color)
+    def colorBase(self, colorString, darken=1)
+```
+The second class generates layout from given components.
+```python
+class pictureGenerator:
+    def __init__(self)
+    def createRandomPicture(self, name)
+    def _createBaseFace(self, shape, nose, mouth, skinColor, mouthColor)
+    def _createEyes(self, eyes, eyeColor)
+    def _createHair(self, mustache, beard, haircut, eyebrows, hairColor)
+    def _selectRandomBaseFace(self)
+    def _selectRandomEyes(self)
+    def _selectRandomHair(self)
+```
+
+
+First, the algorithm creates list of available components in each category. This is done in `__init__` method.
+Then we can call it to create random face, using `createRandomPicture(self, name):` we need only to give this picture name and all the magic begins.
+When we ask `pictureGenerator` class to make us a picture, it calls series of functions that build face for us and put it into the canvas.
+It creates instance of `pictureHandler` class that handles operations on picture being created.
+Whenever we call `addLayer` function it requires two arguments, first, `layer` is a path to layer as a PNG picture that will be used, second, `color` is tuple with three values representing RGB color (`#ffffff` is `white` and `#000000` is `black`).
+Function `colorBase` translates string of there values into color, this also adds another functionality, because it can darken or lighten color we are using, which I use while putting nose on face, I make it lighter so it won't blend in.
+Function `addLayer` puts then all pixels from selected layer into canvas, coloring them accordingly.
+Now putting it all together, calling `createRandomPicture` draws random face components and colors, then puts them on base picture, to save it at the end in `createdFaces` directory.
 
 ---
 
@@ -74,7 +108,14 @@ First, the algorithm creates list of available components in each category. This
 
 ---
 
-Because this is one of the simplest ways to create random faces, it is far from perfect (maybe even it isn't good at all). It still needs some purpose, and probably many more work to make it available to work in your game. I did it as a proof of concept (and being bored one night) and most of the time I spent doing it was on making face parts. Because I am really bad in graphics it took long time. I calculated that having this set of *parts*, I can create 15000 rather different faces (at least composed from different assets, they look kinda the same thanks to my amazing drawing skills). Adding color palletes I used for coloring it rounds up in almost 5 million possible outcomes. Even though it isn't the best algorithm or it doesnt look really good, I encourage you to jump into topic of procedural generation of things in many cases, not only faces. This is extremally interesting topic and can bring big replayability into your game.
+Because this is one of the simplest ways to create random faces, it is far from perfect (maybe even it isn't good at all).
+It still needs some purpose, and probably many more work to make it available to work in your game.
+I did it as a proof of concept (and being bored one night) and most of the time I spent doing it was on making face parts.
+Because I am really bad in graphics, it took me a long time.
+I calculated that having this set of *parts*, I can create 15000 rather different faces (at least composed from different assets, they look kind of the same thanks to my amazing drawing skills).
+Adding color pallets I used for coloring it rounds up in almost 5 million possible outcomes.
+Even though it isn't the best algorithm or it doesn't look really good, I encourage you to jump into topic of procedural generation of things in many cases, not only faces.
+This is extremally interesting topic and can bring big replayability into your game.
 
 
 And for the end, I'd like to show you some examples of faces that could be made with this script and this set of assets.

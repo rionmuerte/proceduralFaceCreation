@@ -63,28 +63,28 @@ class pictureGenerator:
     
     def createRandomPicture(self, name):
         self.ph = pictureHandler(name)
-        self.createBaseFace(*self.selectRandomBaseFace())
-        self.createEyes(*self.selectRandomEyes())
-        self.createHair(*self.selectRandomHair())
+        self._createBaseFace(*self._selectRandomBaseFace())
+        self._createEyes(*self._selectRandomEyes())
+        self._createHair(*self._selectRandomHair())
         self.ph.saveImage()
         
-    def createBaseFace(self, shape, nose, mouth, skinColor, mouthColor):
+    def _createBaseFace(self, shape, nose, mouth, skinColor, mouthColor):
         self.ph.addLayer(shape,self.ph.colorBase(skinColor))
         self.ph.addLayer(nose,self.ph.colorBase(skinColor, 1.15))
         self.ph.addLayer(mouth,self.ph.colorBase(mouthColor))   
 
-    def createEyes(self, eyes, eyeColor):
+    def _createEyes(self, eyes, eyeColor):
         eyes,pupils = eyes
         self.ph.addLayer(eyes,self.ph.colorBase('255 255 255'))
         self.ph.addLayer(pupils, self.ph.colorBase(eyeColor))
     
-    def createHair(self, mustache, beard, haircut, eyebrows, hairColor):
+    def _createHair(self, mustache, beard, haircut, eyebrows, hairColor):
         if haircut is not None: self.ph.addLayer(haircut, self.ph.colorBase(hairColor))
         self.ph.addLayer(eyebrows, self.ph.colorBase(hairColor))
         if beard is not None:self.ph.addLayer(beard, self.ph.colorBase(hairColor))
         if mustache is not None: self.ph.addLayer(mustache, self.ph.colorBase(hairColor))
 
-    def selectRandomBaseFace(self):
+    def _selectRandomBaseFace(self):
         shape = random.choice(self.shapes)
         nose = random.choice(self.noses)
         mouth = random.choice(self.mouths)
@@ -92,12 +92,12 @@ class pictureGenerator:
         mouthColor = random.choice(self.mouthTones)
         return shape, nose, mouth, skinColor, mouthColor
     
-    def selectRandomEyes(self):
+    def _selectRandomEyes(self):
         eyes = random.choice(self.eyes)
         eyeColor = random.choice(self.eyeTones)
         return eyes, eyeColor
 
-    def selectRandomHair(self):
+    def _selectRandomHair(self):
         mustache = random.choice(self.mustaches)
         beard = random.choice(self.beards)
         haircut = random.choice(self.haircut)
